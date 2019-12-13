@@ -12,18 +12,18 @@ const [characterFilms, setCharacterFilms] = useState([])
 
 useEffect(()=>{
   axios
-    .get(`https://swapi.co/api/people/`)
+    .get(`https://swapi.co/api/people/1/`)
     .then(response=>{
         console.log(response.data)
         setCharacterName(response.data)
         })
     .catch(error =>{
-        console.log(error)
+        console.log(error);
         setCharacterName({
-                name: "${name}",
-                homeworld:"OOPS! ${name} lives somewhere but it's not on this page! Try Again!",
+                name: "${characterName}",
+                homeworld:"OOPS! ${characterName} lives somewhere but it's not on this page! Try Again!",
             })
-            })
+            });
   }, [birthYear, homeWorld, characterFilms, characterSpecies ])
 
       return (
@@ -33,24 +33,12 @@ useEffect(()=>{
          <Alert color="secondary"onScroll={() => setCharacterSpecies("species")}>It includes their species.</Alert>
          <Alert color="warning"onScroll={() => setCharacterFilms("films")}>It also includes all of their films!</Alert>
           <div className="entry">
-            {characterName.map(item => {
-              return <CharacterCard key={item} birthYear={birthYear.birth_year} homeWorld={homeWorld.homeworld} characterFilms={characterFilms.films} characterSpecies={characterSpecies.species} />;
-            })}
+             <CharacterCard birthYear={birthYear.birth_year} homeWorld={homeWorld.homeworld} characterFilms={characterFilms.films} characterSpecies={characterSpecies.species} />;
+        
           </div>
         </div>
       );
 
-// const clickHandler = (buttonName)=>{
-//   switch(buttonName){
-//     case 'Yplus':
-//       setYear(year + 1)
-//       break;
-//       case 'Yminus':
-//         setYear(year - 1)
-//         break;
-//         default:
-//   }
-// }
     }
 // console.log(`characterName`)
 // console.log(characterName)

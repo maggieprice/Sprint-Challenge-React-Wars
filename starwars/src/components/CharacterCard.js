@@ -15,7 +15,7 @@ return (
         <Card>
             <CardBody>
                 <CardTitle><h2>Name:{props.name}</h2></CardTitle>
-                    <CardSubtitle><h3>Birth Year:{props.birth_year}| Species: {props.species}</h3> </CardSubtitle>
+                    <CardSubtitle><h3>Birth Year:{props.birth_year} | Species: {props.species}</h3> </CardSubtitle>
                         <CardText>
                          <p>{props.name} has starred in these films: {props.films}.</p>   
                         </CardText>
