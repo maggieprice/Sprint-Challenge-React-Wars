@@ -4,41 +4,34 @@ import CharacterCard from "./CharacterCard";
 import { Alert } from 'reactstrap';
 
 export default function CardGrid(){
-const [characterName, setCharacterName]= useState('')
-const [birthYear, setBirthYear] = useState('')
-const [homeWorld, setHomeWorld]=useState([])
-const [characterSpecies, setCharacterSpecies] = useState([])
-const [characterFilms, setCharacterFilms] = useState([])
+const [data, setData]= useState([])
+// const [birthYear, setBirthYear] = useState('')
 
 useEffect(()=>{
   axios
-    .get(`https://swapi.co/api/people/1/`)
-    .then(response=>{
-        console.log(response.data)
-        setCharacterName(response.data)
+    .get(`https://swapi.co/api/people/`)
+    .then(res=>{
+        console.log(res.data)
+        setData(res.data.results)
         })
+
     .catch(error =>{
         console.log(error);
-        setCharacterName({
-                name: "${characterName}",
-                homeworld:"OOPS! ${characterName} lives somewhere but it's not on this page! Try Again!",
-            })
             });
-  }, [birthYear, homeWorld, characterFilms, characterSpecies ])
+        }, [])
 
-      return (
+    return (
         <div className="container">
-         <Alert color="secondary"onScroll={() => setBirthYear("birth_year")}>This page contains the birth year of your favorite Star Wars characters!</Alert>
-         <Alert color="warning"onScroll={() => setHomeWorld("homeworld")}>It includes their homeworld information.</Alert>
-         <Alert color="secondary"onScroll={() => setCharacterSpecies("species")}>It includes their species.</Alert>
-         <Alert color="warning"onScroll={() => setCharacterFilms("films")}>It also includes all of their films!</Alert>
-          <div className="entry">
-             <CharacterCard birthYear={birthYear.birth_year} homeWorld={homeWorld.homeworld} characterFilms={characterFilms.films} characterSpecies={characterSpecies.species} />;
-        
-          </div>
-        </div>
-      );
+            <Alert color="secondary">This page contains the birth year of your favorite Star Wars characters!</Alert>
 
-    }
-// console.log(`characterName`)
-// console.log(characterName)
+            <Alert color="warning">It includes their homeworld information.</Alert>
+
+            <Alert color="secondary">It includes their species.</Alert>
+
+            <Alert color="warning">It also includes all of their films!</Alert>
+            { data.map(name => {
+            return (<CharacterCard x={name}/>)})}
+        </div>  
+        // </div>
+    );
+            }
